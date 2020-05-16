@@ -1,20 +1,30 @@
 @import "../../../assets/styles/variables";
+
 .wrapper {
   height: 100vh;
   display: grid;
+  background: $bg;
+  overflow-y: scroll;
   grid-template-columns: 100%;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
     "header"
     "main"
     "footer";
+
   .header {
     grid-area: header;
     background: $primary-color;
   }
   .main {
     grid-area: main;
-    padding: 2rem 1.5rem;
+
+    background: $white;
+    margin: 3rem 5rem;
+    box-shadow: $shadow;
+    @include smDown {
+      margin: 1rem 1.5rem;
+    }
   }
   .footer {
     grid-area: footer;
@@ -22,6 +32,6 @@
     justify-content: center;
     align-items: center;
     height: 3rem;
-    font-size: .87rem;
+    font-size: 0.87rem;
   }
 }
