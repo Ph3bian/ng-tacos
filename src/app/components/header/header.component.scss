@@ -1,0 +1,17 @@
+@import "../../../assets/styles/variables";
+
+.nav {
+
+  color: $white;
+  height: 3.33rem;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  &Bar {
+    a {
+      color: $white;
+      text-decoration: none;
+      text-transform: capitalize;
+    }
+  }
+}

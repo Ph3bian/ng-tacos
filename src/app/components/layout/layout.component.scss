@@ -1,0 +1,27 @@
+@import "../../../assets/styles/variables";
+.wrapper {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+  .header {
+    grid-area: header;
+    background: $primary-color;
+  }
+  .main {
+    grid-area: main;
+    padding: 2rem 1.5rem;
+  }
+  .footer {
+    grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    font-size: .87rem;
+  }
+}
