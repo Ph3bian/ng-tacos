@@ -7,6 +7,9 @@ $white: #ffffff;
 $text-black: #333333;
 $bg: #e0e5ef;
 $shadow: 0 10px 20px rgba(116, 140, 173, 0.2);
+$light-grey: #f0f4f9;
+$button-shadow: 0 3px 5px rgba(126, 0, 128, 0.2);
+
 
 // Media Queries
 
@@ -19,7 +22,7 @@ $mediumdown: "only screen and (max-width: 767px)";
 //mixins
 
 @mixin smDown {
-  @media ($smallup) {
+  @media (var($smallup)) {
     @content;
   }
 }

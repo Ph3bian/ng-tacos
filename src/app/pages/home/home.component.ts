@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-// import { eventDispatcher } from "../../store";
-// import { ActionTypes } from "../../store/actions";
+import { eventDispatcher, store } from "../../store";
+import { ActionTypes } from "../../store/actions";
 import { HomeService } from "./home.service";
 import { Subject } from "rxjs";
 @Component({
@@ -9,33 +9,41 @@ import { Subject } from "rxjs";
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
-  randomTaco = new Subject<{
-    name: string;
-    recipe: "string";
-    slug: string;
-    base_layer: object;
-    mixin: object;
-    shell: object;
-    condiment: object;
-  }>();
-
+  recipes: Array<object> = [];
   loading: boolean = true;
+  loadingMore: boolean = false;
   error: string = "";
-  constructor(private homeService: HomeService) {}
+
+  constructor(private homeService: HomeService) {
+    store.subscribe((state) => {
+      const { recipes } = state;
+      this.recipes = recipes;
+    });
+  }
 
   ngOnInit() {
     this.fetchRandom();
   }
 
   fetchRandom() {
-    try {
-      this.homeService.getRecipe().subscribe((response) => {
-        this.randomTaco.next({ ...response });
-        this.loading = false;
-      });
-    } catch (e) {
-      this.error = "Oops, an error occured";
+    this.homeService.getRecipe().subscribe((response) => {
       this.loading = false;
-    }
+      console.log(response);
+      eventDispatcher.next({
+        type: ActionTypes.GET_RECIPE,
+        payload: response.recipe,
+      });
+    });
+  }
+
+  loadMore() {
+    this.loadingMore = true;
+    this.homeService.getRecipe().subscribe((response) => {
+      eventDispatcher.next({
+        type: ActionTypes.GET_RECIPE,
+        payload: response.recipe,
+      });
+      this.loadingMore = false;
+    });
   }
 }

@@ -1,31 +1,20 @@
 <div class="container">
-    <div *ngIf="randomTaco| async as taco; else loading" class="card">
-        <div class="cardHeader"> Taco Recipe</div>
+    <div *ngIf="loading">
+        <app-spinner></app-spinner>
+    </div>
+    <div *ngIf="!loading" class="card">
+        <div class="cardHeader">Recipes</div>
         <div class="cardBody">
-            <div>
-                <div [innerHTML]="taco?.recipe | marked"> </div>
-                <div>
-                    <h3>BaseLayer</h3>
-                    <div [innerHTML]="taco?.base_layer?.recipe | marked"> </div>
-                </div>
-                <div *ngIf="taco?.mixin">
-                    <h3>Mixin</h3>
-                    <div [innerHTML]="taco?.mixin?.recipe | marked"> </div>
-                </div>
+            <div *ngFor="let recipe of recipes, let i = index ">
+                <div class="textHeading">Special Taco Recipe</div>
+                <div class="list" [innerHTML]="recipe | marked"> </div>
 
-                <div *ngIf="taco?.shell">
-                    <h3>Shell</h3>
-                    <div [innerHTML]="taco?.shell?.recipe | marked"> </div>
-                </div>
-                <div *ngIf="taco?.condiment">
-                    <h3>Condiment</h3>
-                    <div [innerHTML]="taco?.condiment?.recipe | marked"> </div>
-                </div>
             </div>
-
-
-
+            <div class="loadMore">
+            <button class="button" (click)="loadMore()" ngDisabled="loadingMore">{{loadingMore ?'laoding...':'Load new recipe'}}</button>
+            </div>
         </div>
     </div>
-    <ng-template #loading>  <app-spinner></app-spinner> </ng-template>
+
+
 </div>
