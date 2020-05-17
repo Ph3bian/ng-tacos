@@ -10,7 +10,6 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { LayoutComponent } from "./components/layout/layout.component";
 import { PageNotFoundComponent } from "./pages/page-not-found/page-not-found.component";
 import { HomeComponent } from "./pages/home/home.component";
-import { ContributorComponent } from "./pages/contributor/contributor.component";
 import { ApiService } from "./shared/services/api";
 import { HomeService } from "./pages/home/home.service";
 
@@ -25,7 +24,6 @@ import { SpinnerComponent } from "./components/spinner/spinner.component";
     LayoutComponent,
     PageNotFoundComponent,
     HomeComponent,
-    ContributorComponent,
     MarkedPipe,
     SpinnerComponent,
   ],
