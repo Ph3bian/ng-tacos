@@ -1,6 +1,8 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
+import { InterceptorService } from "./shared/services/interceptor";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./components/header/header.component";
@@ -11,9 +13,9 @@ import { HomeComponent } from "./pages/home/home.component";
 import { ContributorComponent } from "./pages/contributor/contributor.component";
 import { ApiService } from "./shared/services/api";
 import { HomeService } from "./pages/home/home.service";
-import { HttpClientModule } from "@angular/common/http";
+
 import { MarkedPipe } from "./shared/pipe/marked.pipe";
-import { SpinnerComponent } from './components/spinner/spinner.component';
+import { SpinnerComponent } from "./components/spinner/spinner.component";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,11 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     SpinnerComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [ApiService, HomeService],
+  providers: [
+    ApiService,
+    HomeService,
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,20 +1,20 @@
 <div class="container">
-    <div *ngIf="loading">
-        <app-spinner></app-spinner>
-    </div>
+    <app-spinner *ngIf="loading"></app-spinner>
     <div *ngIf="!loading" class="card">
+
         <div class="cardHeader">Recipes</div>
-        <div class="cardBody">
+        <div class="cardBody" *ngIf="error===''; else displayError">
             <div *ngFor="let recipe of recipes, let i = index ">
                 <div class="textHeading">Special Taco Recipe</div>
                 <div class="list" [innerHTML]="recipe | marked"> </div>
-
             </div>
             <div class="loadMore">
-            <button class="button" (click)="loadMore()" ngDisabled="loadingMore">{{loadingMore ?'laoding...':'Load new recipe'}}</button>
+                <button class="button" (click)="loadMore()"
+                    ngDisabled="loadingMore">{{loadingMore ?'loading...':'Load new recipe'}}</button>
             </div>
         </div>
+        <ng-template #displayErro>
+            <p>{{error}}</p>
+        </ng-template>
     </div>
-
-
 </div>

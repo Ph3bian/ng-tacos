@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { eventDispatcher, store } from "../../store";
 import { ActionTypes } from "../../store/actions";
 import { HomeService } from "./home.service";
-import { Subject } from "rxjs";
+import { Observable } from "rxjs";
+
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
@@ -38,12 +39,18 @@ export class HomeComponent implements OnInit {
 
   loadMore() {
     this.loadingMore = true;
-    this.homeService.getRecipe().subscribe((response) => {
-      eventDispatcher.next({
-        type: ActionTypes.GET_RECIPE,
-        payload: response.recipe,
-      });
-      this.loadingMore = false;
-    });
+    this.homeService.getRecipe().subscribe(
+      (response) => {
+        eventDispatcher.next({
+          type: ActionTypes.GET_RECIPE,
+          payload: response.recipe,
+        });
+        return (this.loadingMore = false);
+      },
+      (err) => {
+        this.error = err.message;
+        this.loadingMore = false;
+      }
+    );
   }
 }
